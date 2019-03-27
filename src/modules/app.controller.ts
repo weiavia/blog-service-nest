@@ -1,4 +1,4 @@
-import { Controller, Get, Body, BadGatewayException, UseInterceptors, Logger } from '@nestjs/common';
+import { Controller, Get, Body, BadGatewayException, UseInterceptors, Logger, Post } from '@nestjs/common';
 import { AppService } from '@app/modules/app.service';
 import { ParamException } from '@app/exceptions/param.exception';
 
@@ -6,8 +6,9 @@ import { ParamException } from '@app/exceptions/param.exception';
 export class AppController {
   constructor(private readonly service: AppService) {}
 
-  @Get()
-  app(@Body('name') param): any {
+  @Post()
+  praise(@Body('name') param): any {
 
   }
+
 }

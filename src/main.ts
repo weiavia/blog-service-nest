@@ -15,8 +15,8 @@ async function bootstrap() {
   app.useGlobalInterceptors(new BackInterceptor())
   app.useLogger(CustomLogger)
   app.enableCors()
-  await app.listen(3001);
+  await app.listen(process.env.PORT);
 }
 bootstrap().then(() => {
-  console.info(`weiapi started, port at: 3001`)
+  console.info(`weiapi started, port at: ${process.env.PORT}`)
 })

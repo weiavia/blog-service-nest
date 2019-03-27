@@ -23,14 +23,14 @@ export class Block {
     type: number
 
     // like number
-    @Column('tinyint', { nullable: true })
+    @Column('tinyint', { nullable: true, default: 0 })
     like: number
 
     // look number
-    @Column('tinyint', { nullable: true })
+    @Column('tinyint', { nullable: true, default: 0 })
     look: number
 
-    @Column('varchar')
+    @Column('varchar', { nullable: true })
     url: string
 
     // 创建时间

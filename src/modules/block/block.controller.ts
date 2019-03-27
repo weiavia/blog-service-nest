@@ -1,4 +1,4 @@
-import { Controller, Post, Param } from '@nestjs/common';
+import { Controller, Post, Param, Body, Get, Query } from '@nestjs/common';
 import { BlockService } from '@app/modules/block/block.service';
 import { createBlockDto } from '@app/modules/block/block.dto';
 
@@ -7,7 +7,12 @@ export class BlockController {
   constructor(private service: BlockService) {}
 
   @Post()
-  create(@Param() param: createBlockDto) {
-    return this.service.save()
+  create(@Body() body: createBlockDto) {
+    return this.service.save(body)
+  }
+
+  @Get()
+  block(@Query('id') id) {
+    return this.service.findOneById(id)
   }
 }

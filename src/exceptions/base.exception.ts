@@ -1,8 +1,4 @@
-interface returnParam {
-  errno?:number
-  status?: number
-  message?: string
-}
+import { returnParam } from "@app/interface/return.interface";
 
 export class CustomException {
   errno:number = 0

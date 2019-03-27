@@ -1,4 +1,4 @@
-import { IsString, IsInt, Length, IsUrl, IsEnum } from 'class-validator';
+import { IsString, IsInt, Length, IsUrl, IsEnum, IsOptional } from 'class-validator';
 import { ARTICLE, MUSIC, VIDEO } from '@app/helpers/Enum';
 
 export class createBlockDto {
@@ -7,16 +7,18 @@ export class createBlockDto {
   @Length(1, 20)
   title: string;
 
-  @IsInt()
+  @IsString()
   @Length(1, 30)
   subTitle:string;
 
   @Length(1)
   content:string
 
+  @IsOptional()
   @IsUrl()
   url:string
 
+  @IsOptional()
   @IsUrl()
   thumb:string
 
