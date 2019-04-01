@@ -22,7 +22,8 @@ export class AllExceptionsFilter extends BaseExceptionFilter {
       response.status(exception.status)
               .json({
                 message: exception.message,
-                errno: exception.errno
+                errno: exception.errno,
+                data: null
               })
     } else {
       super.catch(exception, host)

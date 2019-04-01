@@ -14,14 +14,17 @@ export class Comment {
   @Column({ type: 'int', comment: '主题id' })
   theme_id: number;
 
-  @Column({ type: 'int', comment: '引用评论的id', default: 0 })
+  @Column({ type: 'int', comment: '所引用的评论的id', default: 0 })
   quote_id: number;
   
   @Column({ type: 'varchar', comment: '评论内容'})
   content: string;
 
-  @Column({ type: 'varchar', comment: '联系方式 QQ / EMAIL'})
-  concat: string;
+  @Column({ type: 'varchar', comment: '名字'})
+  name: string;
+
+  @Column({ type: 'varchar', comment: '主页', default: ''})
+  url: string
   
   @CreateDateColumn({comment: '创建时间'})
   creteTime: string

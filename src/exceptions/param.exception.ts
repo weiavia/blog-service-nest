@@ -5,7 +5,7 @@ export class ParamException extends CustomException {
     super(customDto, {
       message: '参数错误',
       errno: 1001,
-      status: 400
+      status: 200
     })
   }
 }
