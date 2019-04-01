@@ -1,17 +1,21 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToOne, JoinColumn } from "typeorm";
 import { Optional } from "@nestjs/common";
+import { Block } from './block.entity';
 
 @Entity()
 export class Comment {
   @PrimaryGeneratedColumn()
   id: number;
   
-  // 暂时没有用户模块
+  // 暂时没有用户模块 
   /* @Optional()
   @Column({ type: 'int', comment: '用户id'})
   uid: number; */
 
-  @Column({ type: 'int', comment: '主题id' })
+  
+  // @Column({ type: 'int', comment: '主题id' })
+  @ManyToOne(type => Block)
+  @JoinColumn({ name: "theme_id" })
   theme_id: number;
 
   @Column({ type: 'int', comment: '所引用的评论的id', default: 0 })
@@ -28,4 +32,5 @@ export class Comment {
   
   @CreateDateColumn({comment: '创建时间'})
   creteTime: string
+
 }

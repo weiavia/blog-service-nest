@@ -15,7 +15,8 @@ export class BlockService {
   }
 
   async findOneById(id) {
-    let result = await this.repository.findOne(id)
+    let result = await this.repository.findOne(id, { relations: ['comments'] })
+    console.log(result)
     if(!result) {
       throw new NotFoundException({})
     }

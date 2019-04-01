@@ -1,0 +1,6 @@
+{
+    "javascript.preferences.importModuleSpecifier": "non-relative",
+    "typescript.preferences.quoteStyle": "single",
+    "files.autoSave": "onFocusChange",
+    "php.validate.run": "onType"
+}

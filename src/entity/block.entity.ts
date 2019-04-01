@@ -1,4 +1,5 @@
-import {Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany, JoinColumn} from "typeorm";
+import { Comment } from '@app/entity/comment.entity'
 
 @Entity()
 export class Block {
@@ -41,4 +42,7 @@ export class Block {
     @UpdateDateColumn()
     updateTime: string
 
+    // 与评论表的一对关系
+    @OneToMany(type => Comment, comment => comment.theme_id)
+    comments: Comment[]
 }
