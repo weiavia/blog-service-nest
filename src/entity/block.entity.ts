@@ -1,5 +1,6 @@
-import {Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany, JoinColumn} from "typeorm";
+import {Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany, JoinColumn, OneToOne} from "typeorm";
 import { Comment } from '@app/entity/comment.entity'
+import { Article } from '@app/entity/article.entity';
 
 @Entity()
 export class Block {
@@ -15,10 +16,6 @@ export class Block {
     @Column('varchar', { length: 30, nullable: true })
     subTitle: string;
 
-    // 内容
-    @Column('text')
-    content: string;
-
     // 类型
     @Column('tinyint')
     type: number
@@ -31,6 +28,7 @@ export class Block {
     @Column('tinyint', { nullable: true, default: 0 })
     look: number
 
+    // url
     @Column('varchar', { nullable: true })
     url: string
 
@@ -42,7 +40,13 @@ export class Block {
     @UpdateDateColumn()
     updateTime: string
 
-    // 与评论表的一对关系
+    // 与文章的一对一关系
+    @OneToOne(type => Article, article => article.block, {
+        cascade: true
+    })
+    article: Article;
+
+    // 与评论表的一对多关系
     @OneToMany(type => Comment, comment => comment.theme_id)
     comments: Comment[]
 }

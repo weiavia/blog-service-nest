@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToOne, JoinColumn } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToOne, JoinColumn, OneToOne } from "typeorm";
 import { Optional } from "@nestjs/common";
 import { Block } from './block.entity';
 
@@ -12,20 +12,26 @@ export class Comment {
   @Column({ type: 'int', comment: '用户id'})
   uid: number; */
 
-  
+
   // @Column({ type: 'int', comment: '主题id' })
-  @ManyToOne(type => Block)
   @JoinColumn({ name: "theme_id" })
+  @ManyToOne(type => Block)
   theme_id: number;
 
-  @Column({ type: 'int', comment: '所引用的评论的id', default: 0 })
-  quote_id: number;
+  // 所引用的评论的id
+  @JoinColumn({'name': 'quote_id'})
+  @OneToOne(type => Comment, comment => comment.quote)
+  quote_id: number
+
+  @OneToOne(type => Comment, comment => comment.quote_id)
+  quote: Comment
   
   @Column({ type: 'varchar', comment: '评论内容'})
   content: string;
 
   @Column({ type: 'varchar', comment: '名字'})
   name: string;
+
 
   @Column({ type: 'varchar', comment: '主页', default: ''})
   url: string

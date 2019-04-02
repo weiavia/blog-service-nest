@@ -1,5 +1,5 @@
 import { Controller, Get, Body, BadGatewayException, UseInterceptors, Logger, Post } from '@nestjs/common';
-import { AppService } from '@app/modules/app.service';
+import { AppService } from '@app/services/app.service';
 import { ParamException } from '@app/exceptions/param.exception';
 
 @Controller()
