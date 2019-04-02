@@ -7,8 +7,13 @@ export class CommentService {
   constructor(@InjectRepository(Comment) private repository) {}
 
   async save(param): Promise<Comment> {
-
-    let comment = await this.repository.save(param)
+    let comment = new Comment()
+    comment.name = param.name
+    comment.quote = param.quote_id
+    comment.theme_id = param.theme_id
+    comment.content = param.content
+    
+    let result  = await this.repository.save(comment)
     return comment
   }
 

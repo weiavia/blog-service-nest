@@ -21,10 +21,8 @@ export class Comment {
   // 所引用的评论的id
   @JoinColumn({'name': 'quote_id'})
   @OneToOne(type => Comment, comment => comment.quote)
-  quote_id: number
+  quote: number
 
-  @OneToOne(type => Comment, comment => comment.quote_id)
-  quote: Comment
   
   @Column({ type: 'varchar', comment: '评论内容'})
   content: string;

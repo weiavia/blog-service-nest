@@ -3,17 +3,19 @@ import { Block } from '@app/entity/block.entity';
 import { InjectRepository, InjectEntityManager } from "@nestjs/typeorm";
 import { NotFoundException } from "@app/exceptions/notfound.exception";
 import { Article } from '@app/entity/article.entity';
+import { CommentService } from './comment.service';
 
 @Injectable()
 export class BlockService {
-  constructor(@InjectRepository(Block) private repository, @InjectEntityManager() private enitityManager) {}
+  constructor(@InjectRepository(Block) private repository, private commentService: CommentService) {}
 
   /* 
-    保存block
+    根据类型保存块
     return boolean
   */
   async save(param) :Promise<boolean> {
     const block = new Block()
+    // 保存块的基本信息
     block.subTitle = param.subTitle
     block.type = param.type
     block.title = param.title
@@ -25,21 +27,26 @@ export class BlockService {
       block.article = article
     }
 
-    let result = await this.repository.save(block)
-    if(result) {
-      return true
-    }
+    await this.repository.save(block)
+    
+    return true
   }
 
   /* 
-    根据Id查找文章详情（带有article comments）
+    查询文章的详细内容包括评论列表
+    @return  { article, omments, ... } 
   */
   async findOneArticleById(id:number) {
-    let result = await this.repository.findOne(id, { relations: ['comments', 'article'] })
-    if(!result) {
+    let article = await this.repository.findOne(id, { relations: ['article'] })
+    
+    if(!article) {
       throw new NotFoundException({})
     }
-    return result
+
+    let comments = await this.commentService.getByThemeId(id)
+    article.comments = comments
+
+    return article
   }
 
   async findAll() {
