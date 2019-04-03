@@ -1,13 +1,13 @@
-import { IsString, IsNumber, IsOptional, IsUrl, Max, Length } from 'class-validator';
+import { IsString, IsNumber, IsOptional, IsUrl, Max, Length, IsInt, IsIn, IsNumberString } from 'class-validator';
+import { IsIntString } from '@app/dto/custom.validate';
 
-export class createCommentDto {
-  
+export class CreateCommentDto {
   @IsOptional()
   @IsNumber()
   uid: number;
 
   @IsNumber()
-  theme_id: number;
+  block_id: number;
 
   @IsOptional()
   @IsNumber()
@@ -23,10 +23,22 @@ export class createCommentDto {
 
   @Length(1, 6)
   @IsString()
-  name: String;
+  name: string;
 }
 
-export class getCommentsDto {
-  @IsNumber()
-  theme_id: number;
+export class FindCommentDto {
+  @IsOptional()
+  @IsIntString()
+  page_skip: number
+
+  @IsOptional()
+  @IsIntString()
+  page_take: number
+
+  @IsIntString()
+  block_id: number
+}
+
+export class DeleteCommentDto {
+
 }

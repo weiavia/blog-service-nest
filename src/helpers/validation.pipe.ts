@@ -30,13 +30,6 @@ export class ValidationPipe implements PipeTransform<any> {
     }
 
     private concatMessage(errors) {
-      let res = []
-      errors.forEach(error => {
-        res.push({
-          field: error.property,
-          faild: error.constraints
-        })
-      });
-      return res
+      return errors.map(error => Object.values(error.constraints).join(';')).join(';')
     }
 }
