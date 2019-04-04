@@ -1,0 +1,1 @@
+select block.title, count(comment.id) as count from block INNER JOIN  comment ON block.id = comment.block_id;

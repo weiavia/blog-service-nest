@@ -46,7 +46,11 @@ export class Block {
     })
     article: Article;
 
+    // 点赞数
+    @Column({ type: 'int', default: 0, comment: '块的点赞数量'})
+    praise_number: number
+
     // 与评论表的一对多关系
-    @OneToMany(type => Comment, comment => comment.theme_id)
+    @OneToMany(type => Comment, comment => comment.block_id)
     comments: Comment[]
 }

@@ -8,6 +8,7 @@ import { CommentModule } from './comment.module';
 @Module({
   controllers: [BlockController],
   providers: [BlockService],
-  imports: [TypeOrmModule.forFeature([Block]), CommentModule]
+  imports: [TypeOrmModule.forFeature([Block]), CommentModule],
+  exports: [BlockService]
 })
 export class BlockModule {}

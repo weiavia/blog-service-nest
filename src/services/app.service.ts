@@ -1,19 +1,17 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Praise } from '@app/entity/praise.entity';
+import { InjectEntityManager } from '@nestjs/typeorm';
+import { PRAISE_TYPE } from '@app/helpers/Enum';
+import { Block } from '@app/entity/block.entity';
+import { Comment } from '@app/entity/comment.entity';
 
 
 @Injectable()
 export class AppService {
-  constructor(@InjectRepository(Praise) private PraiseRepository) {}
+  constructor(@InjectEntityManager() private entityManager) {}
 
-  // 点赞
-  addPraise() {
-
-  }
-
-  // 取消点赞
-  cancelPraise() {
-
+  // 通过 PRAISE_TYPE 为不同的实体点赞
+  async incrementPraise(body) {
+    let entity = body.type === PRAISE_TYPE.BLOCk ? Block : Comment
+    return await this.entityManager.increment(entity, { id: body.id }, "praise_number", 1)
   }
 }

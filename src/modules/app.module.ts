@@ -7,15 +7,13 @@ import { AuthMiddleware } from '@app/helpers/auth.middleware';
 import { AuthService } from '@app/services/auth.service';
 import { BlockModule } from '@app/modules/block.module';
 import { CommentModule } from '@app/modules/comment.module';
-import { Praise } from '@app/entity/praise.entity';
 import { CommentService } from '@app/services/comment.service';
 
 const imports = [
   AuthModule, 
   BlockModule,
   CommentModule,
-  TypeOrmModule.forRoot(),
-  TypeOrmModule.forFeature([Praise])
+  TypeOrmModule.forRoot()
 ]
 
 const controllers = [
