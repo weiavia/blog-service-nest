@@ -14,6 +14,5 @@ export class AppController {
   @Put('/api/v1/praise')
   praise(@Body() body: PraiseDto) {
     this.service.incrementPraise(body)
-    
   }
 }

@@ -8,3 +8,13 @@ export const PRAISE_TYPE = {
   BLOCk: 1,
   COMMENT: 2
 }
+
+export const CLASS_TYPE = {
+  FRONT: 1,
+  AFTER: 2,
+  MATH: 3,
+  MUSIC: 4,
+  ALGORITHM: 5,
+  ENGLISH: 6,
+  PYTHON: 7
+}
