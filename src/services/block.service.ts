@@ -1,13 +1,13 @@
 import { Injectable } from "@nestjs/common";
 import { Block } from '@app/entity/block.entity';
-import { InjectRepository } from "@nestjs/typeorm";
+import { InjectRepository, InjectEntityManager } from "@nestjs/typeorm";
 import { NotFoundException } from "@app/exceptions/notfound.exception";
 import { Article } from '@app/entity/article.entity';
 import { CommentService } from './comment.service';
 
 @Injectable()
 export class BlockService {
-  constructor(@InjectRepository(Block) private repository, private commentService: CommentService) {}
+  constructor(@InjectRepository(Block) private repository,  @InjectEntityManager() private entityManager, private commentService: CommentService) {}
  
   // 保存块 根据type关联不同的表
   async save(param) :Promise<boolean> {
@@ -41,6 +41,7 @@ export class BlockService {
   }
 
   async findAll() {
-    return await this.repository.find()
+    let sql =  ` SELECT *, (SELECT count(*) FROM comment WHERE comment.block_id = block.id) AS comment_count FROM block`
+    return await this.entityManager.query(sql)    
   }
 }
