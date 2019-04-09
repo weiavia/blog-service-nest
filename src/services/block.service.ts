@@ -41,8 +41,14 @@ export class BlockService {
     return article
   }
 
-  async findAll() {
-    let sql =  ` SELECT *, (SELECT count(*) FROM comment WHERE comment.block_id = block.id) AS comment_count FROM block`
+  async findAll({type, take, skip}) {
+    let where = ''
+    if(type != 0) { where = `WHERE type = ${type}` }
+
+    let sql =  ` SELECT *, (SELECT count(*) FROM comment WHERE comment.block_id = block.id) AS comment_count FROM block
+                 ${where} ORDER BY creteTime DESC LIMIT ${take * skip}, ${take} 
+               `
+    //  console.log(sql)
     return await this.entityManager.query(sql)    
   }
 
@@ -60,7 +66,7 @@ export class BlockService {
                 .execute()
   }
 
-  // 自增查看数
+  // 自增look
   async incrementLook(id) {
     this.entityManager.increment(Block, { id }, "look", 1)
   }

@@ -1,6 +1,6 @@
-import { Controller, Post, Param, Body, Get, ParseIntPipe, Put, UsePipes } from '@nestjs/common';
+import { Controller, Post, Param, Body, Get, ParseIntPipe, Put, UsePipes, Query } from '@nestjs/common';
 import { BlockService } from '@app/services/block.service';
-import { CreateBlockDto, UpdateBlockDto, UpdateBlockKeys } from '@app/dto/block.dto';
+import { CreateBlockDto, UpdateBlockDto, UpdateBlockKeys, HomeListDto } from '@app/dto/block.dto';
 import { FieldFilterPipe } from '@app/helpers/fieldFilter.pipe';
 
 const LOOK_ADD = 1
@@ -31,7 +31,7 @@ export class BlockController {
   }
 
   @Get()
-  all() {
-    return this.service.findAll()
+  homeList(@Query() query: HomeListDto) {
+    return this.service.findAll(query)
   }
 }

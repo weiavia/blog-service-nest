@@ -8,7 +8,7 @@ export class CreateBlockDto {
   title: string;
 
   @IsString()
-  @Length(1, 30)
+  @Length(1, 200)
   subTitle:string;
 
   @IsOptional()
@@ -63,6 +63,18 @@ export class UpdateBlockDto {
   @IsOptional()
   @IsIntString()
   updateType:number;
+}
+
+
+export class HomeListDto {
+  @IsIntString()
+  skip:number;
+
+  @IsIntString()
+  take:number;
+
+  @IsIntString()
+  type:number;
 }
 
 export const UpdateBlockKeys = [

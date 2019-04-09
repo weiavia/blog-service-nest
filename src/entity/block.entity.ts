@@ -13,7 +13,7 @@ export class Block {
     title: string; 
 
     // 副标题
-    @Column('varchar', { length: 30, nullable: true })
+    @Column('varchar', { length: 200, nullable: true })
     subTitle: string;
 
     // 类型
