@@ -71,6 +71,11 @@ export class BlockService {
     this.entityManager.increment(Block, { id }, "look", 1)
   }
 
+  // 自增like
+  async incrementLike(id) {
+    this.entityManager.increment(Block, { id }, "like", 1)
+  }
+
   // 修改文章内容通过block_id
   async updateArticleByBlockId(id, content) {
     let querySelect = this.repository.createQueryBuilder()

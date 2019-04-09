@@ -85,5 +85,6 @@ export const UpdateBlockKeys = [
   'thumb',
   'type',
   'look',
+  'like',
   'updateType'
 ]

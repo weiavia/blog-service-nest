@@ -4,6 +4,7 @@ import { CreateBlockDto, UpdateBlockDto, UpdateBlockKeys, HomeListDto } from '@a
 import { FieldFilterPipe } from '@app/helpers/fieldFilter.pipe';
 
 const LOOK_ADD = 1
+const LIKE_ADD = 2
 
 @Controller('/api/v1/blocks')
 export class BlockController {
@@ -25,6 +26,8 @@ export class BlockController {
     // TODO 验证block是否属于当前用户
     if(body.updateType == LOOK_ADD) {
       this.service.incrementLook(id)
+    } else if(body.updateType == LIKE_ADD) {
+      this.service.incrementLike(id)
     } else {
       return this.service.updateOneById(id, body)
     }
