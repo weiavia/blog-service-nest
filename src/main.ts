@@ -15,8 +15,7 @@ async function bootstrap() {
   app.useGlobalFilters(new AllExceptionsFilter(app.get(HTTP_SERVER_REF)))
   app.useGlobalInterceptors(new BackInterceptor())
   app.useLogger(CustomLogger)
-  console.log(STATIC_DIR)
-  // app.use('/static', STATIC_DIR)
+  
   app.useStaticAssets(STATIC_DIR, {prefix: '/static'})
   app.enableCors()
   await app.listen(process.env.PORT);
