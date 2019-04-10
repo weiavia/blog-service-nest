@@ -16,5 +16,6 @@ export const CLASS_TYPE = {
   MUSIC: 4,
   ALGORITHM: 5,
   ENGLISH: 6,
-  PYTHON: 7
+  PYTHON: 7,
+  Linux: 8
 }

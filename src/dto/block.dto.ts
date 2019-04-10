@@ -1,5 +1,5 @@
-import { IsString, IsInt, Length, IsUrl, IsEnum, IsOptional, IsNumber } from 'class-validator';
-import { ARTICLE, MUSIC, VIDEO, CLASS_TYPE } from '@app/helpers/Enum';
+import { IsString, Length, IsUrl, IsEnum, IsOptional, IsNumber } from 'class-validator';
+import { CLASS_TYPE } from '@app/helpers/Enum';
 import { IsIntString } from '@app/dto/custom.validate';
 
 export class CreateBlockDto {
@@ -53,7 +53,7 @@ export class UpdateBlockDto {
   thumb:string;
 
   @IsOptional()
-  @IsEnum([ARTICLE, MUSIC, VIDEO])
+  @IsEnum(CLASS_TYPE)
   type:number;
 
   @IsOptional()
