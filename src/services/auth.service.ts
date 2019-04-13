@@ -1,5 +1,6 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import * as jwt from 'jsonwebtoken'
+import { AuthException } from '@app/exceptions/auth.exception';
 
 const SERCRET = process.env.AUTH_SERCRET
 
@@ -10,7 +11,6 @@ export class AuthService {
     return json web token
   */
   generateJwt(uid: number): string {
-    console.log(uid)
     let payload = { uid }
     let token = jwt.sign(payload, SERCRET, { expiresIn: '2h'})
     return token
@@ -24,7 +24,7 @@ export class AuthService {
     return new Promise((resolve) => {
       jwt.verify(token, SERCRET, (error, decoded) => {
         if (error) {
-          throw new UnauthorizedException(error.message)
+          throw new AuthException()
         }
         resolve(decoded)
       })

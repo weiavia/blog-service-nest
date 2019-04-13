@@ -1,6 +1,6 @@
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { PassportStrategy } from '@nestjs/passport';
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { AuthService } from '@app/services/auth.service';
 
 const SERCRET = process.env.AUTH_SERCRET
@@ -11,13 +11,12 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(private readonly authService: AuthService) {
     super({
       jwtFromRequest: ExtractJwt.fromHeader('token'),
-      secretOrKey: SERCRET
+      secretOrKey: SERCRET,
     });
   }
 
   // passport-jwt的 verify
   async validate(payload, done: Function) {
-    console.log(payload)
     done(null, true);
   }
 }
