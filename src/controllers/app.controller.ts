@@ -3,7 +3,6 @@ import { AppService } from '@app/services/app.service';
 import { CommentService } from '@app/services/comment.service';
 import { BlockService } from '@app/services/block.service';
 import { PraiseDto } from '@app/dto/base.dto';
-import { PRAISE_TYPE } from '@app/helpers/Enum';
 import { diskStorage } from '@app/helpers/multer.storage';
 
 @Controller()

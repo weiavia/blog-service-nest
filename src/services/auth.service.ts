@@ -10,6 +10,7 @@ export class AuthService {
     return json web token
   */
   generateJwt(uid: number): string {
+    console.log(uid)
     let payload = { uid }
     let token = jwt.sign(payload, SERCRET, { expiresIn: '2h'})
     return token
@@ -29,4 +30,5 @@ export class AuthService {
       })
     })
   }
+
 }

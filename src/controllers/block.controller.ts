@@ -1,7 +1,8 @@
-import { Controller, Post, Param, Body, Get, ParseIntPipe, Put, UsePipes, Query } from '@nestjs/common';
+import { Controller, Post, Param, Body, Get, ParseIntPipe, Put, UsePipes, Query, UseGuards } from '@nestjs/common';
 import { BlockService } from '@app/services/block.service';
 import { CreateBlockDto, UpdateBlockDto, UpdateBlockKeys, HomeListDto } from '@app/dto/block.dto';
 import { FieldFilterPipe } from '@app/helpers/fieldFilter.pipe';
+import { AuthGuard } from '@nestjs/passport';
 
 const LOOK_ADD = 1
 const LIKE_ADD = 2
@@ -10,7 +11,9 @@ const LIKE_ADD = 2
 export class BlockController {
   constructor(private service: BlockService) {}
 
+
   @Post()
+  @UseGuards(AuthGuard('jwt'))
   createOne(@Body() body: CreateBlockDto) {
     return this.service.save(body)
   }
