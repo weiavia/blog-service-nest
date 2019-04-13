@@ -36,7 +36,7 @@ export class UpdateBlockDto {
 
   @IsOptional()
   @IsString()
-  @Length(1, 30)
+  @Length(1, 200)
   subTitle:string;
 
   @IsOptional()
