@@ -1,6 +1,6 @@
 import { Controller, Post, Param, Body, Get, ParseIntPipe, Put, UsePipes, Query, UseGuards } from '@nestjs/common';
 import { BlockService } from '@app/services/block.service';
-import { CreateBlockDto, UpdateBlockDto, UpdateBlockKeys, HomeListDto } from '@app/dto/block.dto';
+import { CreateBlockDto, UpdateBlockDto, UpdateBlockKeys, HomeListDto, SearchBlockDto } from '@app/dto/block.dto';
 import { FieldFilterPipe } from '@app/helpers/fieldFilter.pipe';
 import { AuthGuard } from '@nestjs/passport';
 
@@ -18,10 +18,16 @@ export class BlockController {
     return this.service.save(body)
   }
 
+  @Get('search')
+  search(@Query('keyword') keyword: SearchBlockDto) {
+    return this.service.searchByKeyWord(keyword)
+  }
+
   @Get(':id')
   getOne(@Param('id', new ParseIntPipe()) id) {
     return this.service.findOneArticleById(id)
   }
+
   
   @Put(':id')
   @UsePipes(new FieldFilterPipe(UpdateBlockKeys))

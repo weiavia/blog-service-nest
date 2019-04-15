@@ -65,6 +65,11 @@ export class UpdateBlockDto {
   updateType:number;
 }
 
+export class SearchBlockDto {
+  @IsString()
+  keyword: string
+}
+
 
 export class HomeListDto {
   @IsIntString()

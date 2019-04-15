@@ -84,4 +84,11 @@ export class BlockService {
                 .where("article.block_id = :id", { id })
                 .execute()
   }
+
+  // 通过关键字搜索块
+  async searchByKeyWord(keyword) {
+    let sql =  ` SELECT * FROM block WHERE title LIKE '%${keyword}%'`
+    return await this.entityManager.query(sql)
+  }
 }
+
