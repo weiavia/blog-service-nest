@@ -10,14 +10,15 @@ import { ParamException } from '@app/exceptions/param.exception';
 @Injectable()
 export class ValidationPipe implements PipeTransform<any> {
     async transform(value, metadata: ArgumentMetadata) {
+      
       const { metatype } = metadata;
-
+      
       if (!metatype || !this.toValidate(metatype)) {
           return value;
       }
 
       const object = plainToClass(metatype, value);
-   
+
       const errors = await validate(object);
       if (errors.length > 0) {
           let message = this.concatMessage(errors)

@@ -19,8 +19,8 @@ export class BlockController {
   }
 
   @Get('search')
-  search(@Query('keyword') keyword: SearchBlockDto) {
-    return this.service.searchByKeyWord(keyword)
+  search(@Query() query: SearchBlockDto) {
+    return this.service.searchByKeyWord(query.keyword)
   }
 
   @Get(':id')

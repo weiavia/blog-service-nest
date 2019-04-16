@@ -87,7 +87,7 @@ export class BlockService {
 
   // 通过关键字搜索块
   async searchByKeyWord(keyword) {
-    let sql =  ` SELECT * FROM block WHERE title LIKE '%${keyword}%'`
+    let sql =  ` SELECT *, (SELECT count(*) FROM comment WHERE comment.block_id = block.id) AS comment_count FROM block WHERE title LIKE '%${keyword}%'`
     return await this.entityManager.query(sql)
   }
 }

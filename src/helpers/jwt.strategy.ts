@@ -3,7 +3,7 @@ import { PassportStrategy } from '@nestjs/passport';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { AuthService } from '@app/services/auth.service';
 
-const SERCRET = process.env.AUTH_SECRET
+const SECRET = process.env.AUTH_SECRET
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) { 
@@ -11,7 +11,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(private readonly authService: AuthService) {
     super({
       jwtFromRequest: ExtractJwt.fromHeader('token'),
-      secretOrKey: SERCRET,
+      secretOrKey: SECRET,
     });
   }
 
