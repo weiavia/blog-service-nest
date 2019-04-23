@@ -23,11 +23,16 @@ export class BlockController {
     return this.service.searchByKeyWord(query.keyword)
   }
 
+  @Get('resume')
+  async resume() {
+    let resume = await this.service.resume()
+    return await this.service.findOneArticleById(resume.id)
+  }
+
   @Get(':id')
   getOne(@Param('id', new ParseIntPipe()) id) {
     return this.service.findOneArticleById(id)
   }
-
   
   @Put(':id')
   @UsePipes(new FieldFilterPipe(UpdateBlockKeys))

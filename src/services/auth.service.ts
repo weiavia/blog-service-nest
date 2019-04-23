@@ -2,7 +2,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import * as jwt from 'jsonwebtoken'
 import { AuthException } from '@app/exceptions/auth.exception';
 
-const SERCRET = process.env.AUTH_SERCRET
+const SERCRET = process.env.AUTH_SECRET
 
 @Injectable()
 export class AuthService {

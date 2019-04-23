@@ -1,14 +1,21 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, Inject, forwardRef } from "@nestjs/common";
 import { InjectRepository, InjectEntityManager } from "@nestjs/typeorm";
 import { Comment } from '@app/entity/comment.entity';
 import { COMMENT_PAGE_TAKE } from '@app/helpers/Enum';
+import { BlockService } from '@app/services/block.service';
 
 @Injectable()
 export class CommentService {
-  constructor(@InjectRepository(Comment) private repository, @InjectEntityManager() private entityManager) {}
+  constructor(@InjectRepository(Comment) private repository,
+              @InjectEntityManager() private entityManager, 
+              @Inject(forwardRef(() => BlockService)) private blockService: BlockService) {}
 
   // 保存评论，通过count保存楼层字段
   async save(param): Promise<Comment> {
+    if(param.isResume) {
+      let resume = await this.blockService.resume()
+      param.block_id = resume.id
+    } 
     let count = await this.getCountByBlockId(param.block_id)
     param.floor = ++ count
     return await this.repository.save(param)

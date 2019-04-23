@@ -2,7 +2,7 @@ import { Controller, Body, Post, Get, Headers } from '@nestjs/common';
 import { AuthService } from '@app/services/auth.service';
 import { AuthException } from '@app/exceptions/auth.exception';
 
-const SECRET = process.env.AUTH_SERCRET
+const SECRET = process.env.AUTH_SECRET
 
 @Controller('api/v1/auth')
 export class AuthController {
@@ -11,6 +11,7 @@ export class AuthController {
 
   @Post()
   generateTokenBySecret(@Body('secret') secret) {
+    console.log(SECRET)
     if(secret != SECRET) {
       throw new AuthException()
     }

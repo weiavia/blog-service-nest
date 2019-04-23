@@ -17,5 +17,7 @@ export const CLASS_TYPE = {
   ALGORITHM: 5,
   ENGLISH: 6,
   PYTHON: 7,
-  Linux: 8
+  Linux: 8,
+  // 我的简历
+  RESUME: 99
 }

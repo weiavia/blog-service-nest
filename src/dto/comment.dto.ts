@@ -1,5 +1,7 @@
-import { IsString, IsNumber, IsOptional, IsUrl, Max, Length, IsInt, IsIn, IsNumberString } from 'class-validator';
+import { IsString, IsNumber, IsOptional, IsUrl, Max, Length, IsInt, IsIn, IsNumberString, IsBoolean } from 'class-validator';
 import { IsIntString } from '@app/dto/custom.validate';
+import { Optional } from '@nestjs/common';
+import { isBoolean } from 'util';
 
 export class CreateCommentDto {
   @IsOptional()
@@ -24,6 +26,10 @@ export class CreateCommentDto {
   @Length(1, 6)
   @IsString()
   name: string;
+
+  @Optional()
+  @IsBoolean()
+  isResume: boolean
 }
 
 export class FindCommentDto {

@@ -1,18 +1,33 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, forwardRef, Inject } from "@nestjs/common";
 import { Block } from '@app/entity/block.entity';
 import { InjectRepository, InjectEntityManager, InjectConnection } from "@nestjs/typeorm";
 import { NotFoundException } from "@app/exceptions/notfound.exception";
 import { Article } from '@app/entity/article.entity';
 import { CommentService } from './comment.service';
+import { CLASS_TYPE } from '@app/helpers/Enum';
 
 @Injectable()
 export class BlockService {
   constructor(@InjectRepository(Block) private repository,  
               @InjectEntityManager() private entityManager,
-              private commentService: CommentService) {}
+              @Inject(forwardRef(() => CommentService)) private commentService: CommentService) {}
  
+  // 检查resumeBlock，没有就创建  返回block.id
+ async resume() :Promise<Block>{
+  let resume = await this.repository.findOne({ type: CLASS_TYPE.RESUME })
+  if(!resume) {
+    resume = await this.save({
+      title: 'Resume placeholder',
+      subTitle: 'Resume placeholder',
+      type: CLASS_TYPE.RESUME,
+      article: 'resume placeholde for comment'
+    })
+  }
+  return resume
+ }
+
   // 保存块 根据type关联不同的表
-  async save(param) :Promise<boolean> {
+  async save(param) :Promise<number> {
     const block = new Block()
     // 保存块的基本信息
     block.subTitle = param.subTitle
