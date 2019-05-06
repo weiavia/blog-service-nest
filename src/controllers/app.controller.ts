@@ -1,4 +1,4 @@
-import { Controller, Get, Body, BadGatewayException, UseInterceptors, Logger, Post, Put, ParseIntPipe, FileInterceptor, UploadedFile, MulterModule } from '@nestjs/common';
+import { Controller, Get, Body, BadGatewayException, UseInterceptors, Logger, Post, Put, ParseIntPipe, FilesInterceptor, UploadedFile, UploadedFiles } from '@nestjs/common';
 import { AppService } from '@app/services/app.service';
 import { CommentService } from '@app/services/comment.service';
 import { BlockService } from '@app/services/block.service';
@@ -17,9 +17,12 @@ export class AppController {
   }
 
   @Post('/api/v1/file')
-  @UseInterceptors(FileInterceptor('file', { storage: diskStorage }))
-  uploadFile(@UploadedFile() file) {
-    // 外网IP跟端口号
-    return `http://127.0.0.1:3001/static/images/${file.filename}`
+  @UseInterceptors(FilesInterceptor('file[]', 10, { storage: diskStorage }))
+  uploadFile(@UploadedFiles() files) {
+    let data = []
+    files.forEach(file => {
+      data.push(`images/${file.filename}`)
+    });
+    return data
   }
 }

@@ -8,11 +8,13 @@ import { AuthService } from '@app/services/auth.service';
 import { BlockModule } from '@app/modules/block.module';
 import { CommentModule } from '@app/modules/comment.module';
 import { CommentService } from '@app/services/comment.service';
+import { TimelineModule } from '@app/modules/timeline.module';
 
 const imports = [
   AuthModule, 
   BlockModule,
   CommentModule,
+  TimelineModule,
   TypeOrmModule.forRoot()
 ]
 
