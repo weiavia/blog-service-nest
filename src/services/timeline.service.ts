@@ -34,8 +34,16 @@ export class TimelineService {
     if(date) {
       sql += ` WHERE unix_timestamp(creteTime) < ${date}`
     }
-    sql += ` LIMIT ${page * 15}, 15`
-    
-    return await this.entityManager.query(sql)
+    sql += ` ORDER BY creteTime DESC LIMIT ${page * 15}, 15`
+
+    let timelines =  await this.entityManager.query(sql)
+
+    for(let i=0; i<timelines.length; i++) {
+      let sql = `SELECT src FROM photo WHERE theme_id = ${timelines[i].id}`
+      let photos = await this.entityManager.query(sql)
+      timelines[i].photos = photos      
+    }
+
+    return timelines
   }
 }
