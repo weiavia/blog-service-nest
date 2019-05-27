@@ -23,7 +23,7 @@ module.exports = {
       ref  : 'origin/master',
       repo : 'git@github.com:weiavia/weiapi-nest.git',
       path : '/root/weiapi-nest',
-      'post-deploy' : 'git pull && pm2 reload ecosystem.config.js --env production'
+      'post-deploy' : 'git pull && npm install &&  pm2 reload ecosystem.config.js --env production'
     }
   }
 };
