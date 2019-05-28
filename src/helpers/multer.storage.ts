@@ -5,7 +5,7 @@ import path = require('path')
 
 export let diskStorage = multer.diskStorage({
   destination: (req, file, cb) => {
-    let dir = '/root/uploads/images'
+    let dir = path.resolve(STATIC_DIR, 'images')
     // 不存在则创建目录
     if(!fs.existsSync(dir)) {
       fs.mkdirSync(dir)
