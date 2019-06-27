@@ -5,6 +5,7 @@
   "author": "weiaican@outlook.com",
   "license": "MIT",
   "scripts": {
+    "deploy": "pm2 deploy production update",
     "build": "tsc -p tsconfig.json",
     "format": "prettier --write \"src/**/*.ts\"",
     "start": "ts-node -r tsconfig-paths/register src/main.ts",
