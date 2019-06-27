@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn, UpdateDateColumn } from "typeorm";
 import { Block } from '@app/entity/block.entity';
 
 // 文章内容表 跟block(主题表)是一对一关系
@@ -11,6 +11,10 @@ export class Article {
     // 内容
     @Column('text')
     content: string;
+
+    // 更新时间
+    @UpdateDateColumn()
+    updateTime: string
 
     // block_id
     @OneToOne(type => Block, block => block.article)

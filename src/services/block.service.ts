@@ -12,7 +12,7 @@ export class BlockService {
               @InjectEntityManager() private entityManager,
               @Inject(forwardRef(() => CommentService)) private commentService: CommentService) {}
  
-  // 检查resumeBlock，没有就创建  返回block.id
+ // 检查resumeBlock，没有就创建  返回block.id
  async resume() :Promise<Block>{
   let resume = await this.repository.findOne({ type: CLASS_TYPE.RESUME })
   if(!resume) {
@@ -60,9 +60,15 @@ export class BlockService {
     let where = ''
     if(type != 0) { where = `WHERE type = ${type}` }
 
-    let sql =  ` SELECT *, (SELECT count(*) FROM comment WHERE comment.block_id = block.id) AS comment_count FROM block
-                 ${where} ORDER BY creteTime DESC LIMIT ${take * skip}, ${take} 
-               `
+    // , (SELECT count(*) FROM comment WHERE comment.block_id = block.id) AS comment_count
+    
+    let sql = `SELECT block.*, (SELECT count(*) FROM comment WHERE comment.block_id = block.id) AS comment_count FROM block LEFT JOIN article ON block.id = article.block_id
+                 ${where} ORDER BY article.updateTime DESC,block.creteTime DESC LIMIT ${take * skip}, ${take} `
+
+                 
+    // let sql = SELECT *, (SELECT count(*) FROM comment WHERE comment.block_id = block.id) AS comment_count FROM block
+    //              ${where} ORDER BY creteTime DESC LIMIT ${take * skip}, ${take} 
+    
     //  console.log(sql)
     return await this.entityManager.query(sql)    
   }
