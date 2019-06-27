@@ -17,7 +17,7 @@ module.exports = {
 
   deploy : {
     production : {
-      key: '/c/Users/pc/.ssh/id_rsa',
+      key: '/Users/weiavia/.ssh/id_rsa',
       user : 'root',
       host : ['94.191.104.238'],
       ref  : 'origin/master',
